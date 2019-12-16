@@ -65,6 +65,11 @@ var server = http.createServer(function(request, response) {
     response.setHeader("Content-Type", "text/json;charset=utf-8");
     response.write(fs.readFileSync("public/5.json"));
     response.end();
+  } else if (path === "/page1") {
+    response.statusCode = 200;
+    response.setHeader("Content-Type", "text/json;charset=utf-8");
+    response.write(fs.readFileSync("db/page1.json"));
+    response.end();
   } else if (path === "/page2") {
     response.statusCode = 200;
     response.setHeader("Content-Type", "text/json;charset=utf-8");

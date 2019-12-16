@@ -1,6 +1,34 @@
 console.log("hello world");
 let n = 1;
-getPage.onclick = () => {
+getPPage.onclick = () => {
+  const request = new XMLHttpRequest();
+
+  request.open("GET", `/page${n - 1}`);
+  request.onreadystatechange = () => {
+    if (request.readyState === 4 && request.status === 200) {
+      console.log(request.response);
+      const array = JSON.parse(request.response);
+
+      array.forEach(element => {
+        const li = document.createElement("li");
+        li.textContent = element.id;
+        const xxx = document.querySelector("#xxx");
+        xxx.removeChild(xxx.firstChild);
+
+        xxx.appendChild(li);
+      });
+      n -= 1;
+      if (n <= 1) {
+        const getPPage = document.querySelector("#getPPage");
+        getPPage.setAttribute("disabled", "false");
+        let getNPage = document.querySelector("#getNPage");
+        getNPage.removeAttribute("disabled");
+      }
+    }
+  };
+  request.send();
+};
+getNPage.onclick = () => {
   const request = new XMLHttpRequest();
 
   request.open("GET", `/page${n + 1}`);
@@ -12,12 +40,17 @@ getPage.onclick = () => {
       array.forEach(element => {
         const li = document.createElement("li");
         li.textContent = element.id;
+        const xxx = document.querySelector("#xxx");
+        xxx.removeChild(xxx.firstChild);
+
         xxx.appendChild(li);
       });
       n += 1;
       if (n === 3) {
-        const getPage = document.querySelector("#getPage");
-        getPage.setAttribute("disabled", "false");
+        const getNPage = document.querySelector("#getNPage");
+        getNPage.setAttribute("disabled", "false");
+        const getPPage = document.querySelector("#getPPage");
+        getPPage.removeAttribute("disabled");
       }
     }
   };
