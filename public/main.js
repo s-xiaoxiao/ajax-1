@@ -1,5 +1,9 @@
 console.log("hello world");
 let n = 1;
+if (n === 1) {
+  const getPPage = document.querySelector("#getPPage");
+  getPPage.setAttribute("disabled", "false");
+}
 getPPage.onclick = () => {
   const request = new XMLHttpRequest();
 
@@ -46,6 +50,10 @@ getNPage.onclick = () => {
         xxx.appendChild(li);
       });
       n += 1;
+      if (n > 1) {
+        const getPPage = document.querySelector("#getPPage");
+        getPPage.removeAttribute("disabled");
+      }
       if (n === 3) {
         const getNPage = document.querySelector("#getNPage");
         getNPage.setAttribute("disabled", "false");
